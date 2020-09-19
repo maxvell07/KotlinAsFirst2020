@@ -3,6 +3,8 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
+import lesson1.task1.sqr
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.sqrt
 
@@ -68,8 +70,17 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String = TODO()
-
+fun ageDescription(age: Int): String {
+    if (age % 100 in 11..19) {
+        return "$age лет"
+}
+    return when (age % 10) {
+        1 -> "$age год"
+        2,3,4 -> "$age года"
+        5,6,7,8,9,0 -> "$age лет"
+        else -> "NO"
+    }
+}
 /**
  * Простая (2 балла)
  *
@@ -96,7 +107,8 @@ fun whichRookThreatens(
     kingX: Int, kingY: Int,
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
-): Int = TODO()
+): Unit = TODO()
+
 
 /**
  * Простая (2 балла)
@@ -112,7 +124,12 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int = TODO()
+): Int = when {
+    (((kingY == rookY) || (kingX == rookX)) && (abs(kingX - bishopX) == abs(kingY - bishopY))) -> 3
+    ((kingY == rookY) || (kingX == rookX)) -> 1
+    (abs(kingX - bishopX) == abs(kingY - bishopY)) -> 2
+    else -> 0
+}
 
 /**
  * Простая (2 балла)
@@ -124,12 +141,12 @@ fun rookOrBishopThreatens(
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
 
-/**
- * Средняя (3 балла)
- *
- * Даны четыре точки на одной прямой: A, B, C и D.
- * Координаты точек a, b, c, d соответственно, b >= a, d >= c.
- * Найти длину пересечения отрезков AB и CD.
- * Если пересечения нет, вернуть -1.
- */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+
+        /**
+         * * Средняя (3 балла)
+         ** Даны четыре точки на одной прямой: A, B, C и D.
+         * * Координаты точек a, b, c, d соответственно, b >= a, d >= c.
+         * Найти длину пересечения отрезков AB и CD.
+         * Если пересечения нет, вернуть -1.
+         * */
+        fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
