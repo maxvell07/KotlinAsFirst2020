@@ -73,14 +73,15 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
 fun ageDescription(age: Int): String {
     if (age % 100 in 11..19) {
         return "$age лет"
-}
+    }
     return when (age % 10) {
         1 -> "$age год"
-        2,3,4 -> "$age года"
-        5,6,7,8,9,0 -> "$age лет"
+        2, 3, 4 -> "$age года"
+        5, 6, 7, 8, 9, 0 -> "$age лет"
         else -> "NO"
     }
 }
+
 /**
  * Простая (2 балла)
  *
@@ -125,9 +126,9 @@ fun rookOrBishopThreatens(
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
 ): Int = when {
-    (((kingY == rookY) || (kingX == rookX)) && (abs(kingX - bishopX) == abs(kingY - bishopY))) -> 3
+    ((kingY == rookY) || (kingX == rookX)) && (abs(kingX - bishopX) == abs(kingY - bishopY)) -> 3
     ((kingY == rookY) || (kingX == rookX)) -> 1
-    (abs(kingX - bishopX) == abs(kingY - bishopY)) -> 2
+    abs(kingX - bishopX) == abs(kingY - bishopY) -> 2
     else -> 0
 }
 
@@ -142,11 +143,11 @@ fun rookOrBishopThreatens(
 fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
 
 
-        /**
-         * * Средняя (3 балла)
-         ** Даны четыре точки на одной прямой: A, B, C и D.
-         * * Координаты точек a, b, c, d соответственно, b >= a, d >= c.
-         * Найти длину пересечения отрезков AB и CD.
-         * Если пересечения нет, вернуть -1.
-         * */
-        fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+/**
+ * * Средняя (3 балла)
+ ** Даны четыре точки на одной прямой: A, B, C и D.
+ * * Координаты точек a, b, c, d соответственно, b >= a, d >= c.
+ * Найти длину пересечения отрезков AB и CD.
+ * Если пересечения нет, вернуть -1.
+ * */
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
