@@ -78,6 +78,7 @@ fun ageDescription(age: Int): String {
         2, 3, 4 -> "$age года"
         5, 6, 7, 8, 9, 0 -> "$age лет"
         else -> "NO"
+
     }
 }
 
@@ -125,8 +126,8 @@ fun rookOrBishopThreatens(
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
 ): Int = when {
-    ((kingY == rookY) || (kingX == rookX)) && (abs(kingX - bishopX) == abs(kingY - bishopY)) -> 3
-    ((kingY == rookY) || (kingX == rookX)) -> 1
+    (kingY == rookY || kingX == rookX) && abs(kingX - bishopX) == abs(kingY - bishopY) -> 3
+    (kingY == rookY) || (kingX == rookX) -> 1
     abs(kingX - bishopX) == abs(kingY - bishopY) -> 2
     else -> 0
 }
