@@ -66,7 +66,7 @@ fun main() {
  * Рассчитать время в секундах, прошедшее с начала суток (30035 в данном случае).
  */
 fun seconds(hours: Int, minutes: Int, seconds: Int) =
-    (hours * 60 * 60) + (minutes * 60) + seconds
+    hours * 60 * 60 + minutes * 60 + seconds
 
 
 /**
