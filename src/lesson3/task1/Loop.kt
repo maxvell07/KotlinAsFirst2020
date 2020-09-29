@@ -2,6 +2,7 @@
 
 package lesson3.task1
 
+import lesson5.task1.containsIn
 import kotlin.math.sqrt
 
 // Урок 3: циклы
@@ -73,14 +74,14 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun digitNumber(n: Int): Int {
-    var count = 1
-    while (n != 0) {
-        n / 10
+    var count = 0
+    var n2 = n
+    while (n2 != 0) {
+        n2 = n2 / 10
         count++
     }
     return if (n == 0) 1
-    else
-        count
+    else count
 }
 
 /**
