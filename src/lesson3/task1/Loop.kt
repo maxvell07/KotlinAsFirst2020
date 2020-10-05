@@ -243,9 +243,10 @@ fun fibSequenceDigit(n: Int): Int {
             count++
         }
         r = fib(i)
-        if (count >= n) {
-            return (r / 10.0.pow(count - n) % 10).toInt()
-        }
+        return if (count >= n)
+            (r / 10.0.pow(count - n) % 10).toInt()
+        else
+            return -1
     }
-    return -1
+    return  -1
 }
