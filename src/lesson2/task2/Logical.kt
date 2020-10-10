@@ -3,6 +3,7 @@
 package lesson2.task2
 
 import lesson1.task1.sqr
+import ru.spbstu.kotlin.generate.assume.retry
 
 /**
  * Пример
@@ -61,6 +62,8 @@ fun circleInside(
  * Вернуть true, если кирпич пройдёт
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean =
-    a * b <= r * s || a * c <= r * s || b * c <= r * s
+    r >= a && s >= b || s >= a && r >= b
+            || r >= a && s >= c || s >= a && r >= c
+            || r >= b && s >= c || s >= b && r >= c
 
 
