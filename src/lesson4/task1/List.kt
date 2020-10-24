@@ -3,7 +3,9 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import lesson3.task1.digitNumber
 import kotlin.math.sqrt
+import kotlin.collections.listOf as listOf1
 
 // Урок 4: списки
 // Максимальное количество баллов = 12
@@ -17,12 +19,12 @@ import kotlin.math.sqrt
  */
 fun sqRoots(y: Double) =
     when {
-        y < 0 -> listOf()
-        y == 0.0 -> listOf(0.0)
+        y < 0 -> listOf1()
+        y == 0.0 -> listOf1(0.0)
         else -> {
             val root = sqrt(y)
             // Результат!
-            listOf(-root, root)
+            listOf1(-root, root)
         }
     }
 
@@ -34,11 +36,11 @@ fun sqRoots(y: Double) =
  */
 fun biRoots(a: Double, b: Double, c: Double): List<Double> {
     if (a == 0.0) {
-        return if (b == 0.0) listOf()
+        return if (b == 0.0) listOf1()
         else sqRoots(-c / b)
     }
     val d = discriminant(a, b, c)
-    if (d < 0.0) return listOf()
+    if (d < 0.0) return listOf1()
     if (d == 0.0) return sqRoots(-b / (2 * a))
     val y1 = (-b + sqrt(d)) / (2 * a)
     val y2 = (-b - sqrt(d)) / (2 * a)
@@ -127,7 +129,7 @@ fun abs(v: List<Double>): Double = TODO()
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double = TODO()
+fun mean(list: List<Double>): Double = list.sum() / list.size
 
 /**
  * Средняя (3 балла)
@@ -146,7 +148,15 @@ fun center(list: MutableList<Double>): MutableList<Double> = TODO()
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>): Int = TODO()
+fun times(a: List<Int>, b: List<Int>): Int {
+    var s = 0
+    if (b.isEmpty()) return 0
+    else
+        for (i in a.indices) {
+            s += a[i] * b[i]
+        }
+    return s
+}
 
 /**
  * Средняя (3 балла)
@@ -156,6 +166,7 @@ fun times(a: List<Int>, b: List<Int>): Int = TODO()
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
+
 fun polynom(p: List<Int>, x: Int): Int = TODO()
 
 /**
@@ -250,4 +261,78 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    var answer = ""
+    var N = n
+    val unit = listOf1("один ", "два ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять ")
+    val ten = listOf1(
+        "десять ",
+        "двадцать ",
+        "тридцать ",
+        "сорок ",
+        "пятьдесят ",
+        "шестьдесят ",
+        "семьдесят ",
+        "восемьдест ",
+        "девяносто "
+    )
+    val hundred =
+        listOf1("сто ", "двести ", "триста ", "четыреста ", "пятьсот ", "шестьсот ", "семьсот ", "восемьсот ", "девятьсот ")
+    val error = listOf1(
+        "десять один ",
+        "десять два ",
+        "десять три ",
+        "десять четыре ",
+        "десять пять ",
+        "десять шесть ",
+        "десять семь ",
+        "десять восемь ",
+        "десять девять ",
+        "один тысяч ",
+        "два тысяч ",
+        "три тысяч ",
+        "четыре тысяч ",
+        "пять тысяч ",
+        "шесть тысяч ",
+        "семь тысяч ",
+        "восемь тысяч ",
+        "девять тысяч "
+    )
+    val other = listOf1(
+        "одиннадцать ",
+        "двенадцать ",
+        "тринадцать ",
+        "четырнадцать ",
+        "пятнадцать ",
+        "шестнадцать ",
+        "семнадцать ",
+        "восемнадцать ",
+        "девятнадцать ",
+        "одна тысяча ",
+        "две тысячи ",
+        "три тысячи ",
+        "четыре тысячи ",
+        "пять тысяч ",
+        "шесть тысяч ",
+        "семь тысяч ",
+        "восемь тысяч ",
+        "девять тысяч "
+    )
+    for (i in 1..digitNumber(n)) {
+        val lastd = N % 10
+        val list = mutableListOf("")
+        when (i) {
+            1, 4 -> list += unit
+            2, 5 -> list += ten
+            3, 6 -> list += hundred
+        }
+        if (i == 4)
+            answer = "тысяч $answer"
+        answer = list[lastd] + answer
+        N /= 10
+    }
+    for (k in error.indices)
+        if (error[k] in answer)
+            answer = answer.replace(error[k], other[k])
+    return answer.trim()
+}
