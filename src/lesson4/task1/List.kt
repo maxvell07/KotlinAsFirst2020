@@ -129,7 +129,8 @@ fun abs(v: List<Double>): Double = TODO()
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double = list.sum() / list.size
+fun mean(list: List<Double>): Double = if (list.isEmpty()) 0.0
+else list.sum() / list.size
 
 /**
  * Средняя (3 балла)
@@ -150,11 +151,9 @@ fun center(list: MutableList<Double>): MutableList<Double> = TODO()
  */
 fun times(a: List<Int>, b: List<Int>): Int {
     var s = 0
-    if (b.isEmpty()) return 0
-    else
-        for (i in a.indices) {
-            s += a[i] * b[i]
-        }
+    for (i in a.indices) {
+        s += a[i] * b[i]
+    }
     return s
 }
 
@@ -263,9 +262,10 @@ fun roman(n: Int): String = TODO()
  */
 fun russian(n: Int): String {
     var answer = ""
-    var N = n
-    val unit = listOf1("один ", "два ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять ")
+    var n2 = n
+    val unit = listOf1("","один ", "два ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять ")
     val ten = listOf1(
+        "",
         "десять ",
         "двадцать ",
         "тридцать ",
@@ -277,8 +277,20 @@ fun russian(n: Int): String {
         "девяносто "
     )
     val hundred =
-        listOf1("сто ", "двести ", "триста ", "четыреста ", "пятьсот ", "шестьсот ", "семьсот ", "восемьсот ", "девятьсот ")
+        listOf1(
+            "",
+            "сто ",
+            "двести ",
+            "триста ",
+            "четыреста ",
+            "пятьсот ",
+            "шестьсот ",
+            "семьсот ",
+            "восемьсот ",
+            "девятьсот "
+        )
     val error = listOf1(
+        "",
         "десять один ",
         "десять два ",
         "десять три ",
@@ -299,6 +311,7 @@ fun russian(n: Int): String {
         "девять тысяч "
     )
     val other = listOf1(
+        "",
         "одиннадцать ",
         "двенадцать ",
         "тринадцать ",
@@ -319,17 +332,16 @@ fun russian(n: Int): String {
         "девять тысяч "
     )
     for (i in 1..digitNumber(n)) {
-        val lastd = N % 10
-        val list = mutableListOf("")
-        when (i) {
-            1, 4 -> list += unit
-            2, 5 -> list += ten
-            3, 6 -> list += hundred
+        val lastd = n2 % 10
+        val a = when (i) {
+            1, 4 -> unit
+            2, 5 -> ten
+            else -> hundred
         }
         if (i == 4)
             answer = "тысяч $answer"
-        answer = list[lastd] + answer
-        N /= 10
+        answer = a[lastd] + answer
+        n2 /= 10
     }
     for (k in error.indices)
         if (error[k] in answer)
