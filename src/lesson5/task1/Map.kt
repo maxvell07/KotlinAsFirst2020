@@ -2,7 +2,6 @@
 
 package lesson5.task1
 
-
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
 // Рекомендуемое количество баллов = 9
@@ -117,12 +116,7 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
-fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
-    for ((item, mark) in a) {
-        if (mark == b[item]) return true
-    }
-    return false
-}
+fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean= TODO()
 
 /**
  * Простая (2 балла)
@@ -180,8 +174,20 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *   averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0))
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
-fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> = TODO()
-
+fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
+    val answer = mutableMapOf<String, Double>()
+    val count = mutableMapOf<String, Double>()
+    for ((key, mean) in stockPrices)
+        if (answer[key] != null) {
+            answer[key] = answer[key]!! + mean
+            count[key] = count[key]!! + 1
+        } else {
+            answer[key] = mean
+            count[key] = 1.0
+        }
+    for ((key, value) in answer) answer[key] = value / count[key]!!
+    return answer
+}
 
 /**
  * Средняя (4 балла)
