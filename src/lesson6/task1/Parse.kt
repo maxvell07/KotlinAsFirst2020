@@ -2,9 +2,12 @@
 
 package lesson6.task1
 
+import lesson2.task2.daysInMonth
+
+
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
-// Рекомендуемое количество баллов = 11
+// Рекомендуемое количество баллов = 113
 // Вместе с предыдущими уроками (пять лучших, 2-6) = 40/54
 
 /**
@@ -74,7 +77,19 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val mon = mapOf("января" to 1, "февраля" to 2, "марта" to 3, "апреля" to 4, "мая" to 5, "июня" to 6, "июля" to 7,
+        "августа" to 8, "сентября" to 9, "октября" to 10, "ноября" to 11, "декабря" to 12
+    )
+    val parts = str.split(" ")
+    if (parts.size != 3)
+        return ""
+    val y = parts[2].toInt()
+    val d = parts[0].toInt()
+    val m = mon[parts[1]] ?: return ""
+    return if (daysInMonth(m, y) < d) ""
+    else String.format("%02d.%02d.%02d", d, m, y)
+}
 
 /**
  * Средняя (4 балла)
@@ -86,8 +101,35 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
-
+fun dateDigitToStr(digital: String): String {
+    if (!digital.matches(Regex("""\d+.\d+.\d+"""))) return ""
+    var month1 = listOf(
+        "",
+        " января ",
+        " февраля ",
+        " марта ",
+        " апреля ",
+        " мая ",
+        " июня ",
+        " июля ",
+        " августа ",
+        " сентября ",
+        " октября ",
+        " ноября ",
+        " декабря "
+    )
+    val parts = digital.split(".")
+    var m = parts[1].toInt() % 100
+    var d = (parts[0].toInt() % 100).toString()
+    var answer = (d + month1[m] + parts[2])
+    if (parts.size != 3) return ""
+    if ((parts[2].toInt() != 2100 || parts[2].toInt() != 2200 || parts[2].toInt() != 2300) && (parts[2].toInt() % 4 == 0) &&
+        (m == 2 && parts[1].toInt() <= 29)
+    ) return answer
+    if ((m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12) && (parts[0].toInt() <= 31)) return answer
+    if ((m == 4 || m == 6 || m == 9 || m == 11) && (parts[0].toInt() <= 30)) return answer
+    return ""
+}
 /**
  * Средняя (4 балла)
  *

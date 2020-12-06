@@ -304,7 +304,7 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
             var sum = 0
             sum = list[i] + list[j]
             if (sum == number && i != j) return Pair(i, j)
-        }
+        }  
     }
     return Pair(-1, -1)
 }
