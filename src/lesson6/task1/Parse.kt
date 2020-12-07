@@ -82,11 +82,11 @@ fun dateStrToDigit(str: String): String {
     val parts = str.split(" ")
     if (parts.size != 3)
         return ""
-    val y = parts[2].toInt() % (10 * parts[2].toInt())
+    val y = parts[2].toInt()
     val d = parts[0].toInt()
     val m = mon[parts[1]] ?: return ""
     return if (daysInMonth(m, y) < d) ""
-    else String.format("%02d.%02d.%02d", d, m, y)
+    else String.format("%02d.%02d.%2d", d, m, y)
 }
 
 /**
