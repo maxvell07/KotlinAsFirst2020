@@ -64,8 +64,6 @@ fun main() {
         println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
     }
 }
-
-
 /**
  * Средняя (4 балла)
  *
@@ -84,7 +82,7 @@ fun dateStrToDigit(str: String): String {
     val parts = str.split(" ")
     if (parts.size != 3)
         return ""
-    val y = parts[2].toInt()
+    val y = parts[2].toInt() % (10 * parts[2].toInt())
     val d = parts[0].toInt()
     val m = mon[parts[1]] ?: return ""
     return if (daysInMonth(m, y) < d) ""
@@ -119,15 +117,13 @@ fun dateDigitToStr(digital: String): String {
         " декабря "
     )
     val parts = digital.split(".")
-    var m = parts[1].toInt() % 100
-    var d = (parts[0].toInt() % 100).toString()
+    val m = parts[1].toInt() % 100
+    val d = (parts[0].toInt() % 100).toString()
     var answer = (d + month1[m] + parts[2])
     if (parts.size != 3) return ""
-    if ((parts[2].toInt() != 2100 || parts[2].toInt() != 2200 || parts[2].toInt() != 2300) && (parts[2].toInt() % 4 == 0) &&
-        (m == 2 && parts[1].toInt() <= 29)
-    ) return answer
-    if ((m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12) && (parts[0].toInt() <= 31)) return answer
-    if ((m == 4 || m == 6 || m == 9 || m == 11) && (parts[0].toInt() <= 30)) return answer
+    if (m == 0 || d.toInt() == 0 || parts[2].toInt() == 0) return ""
+    return if (daysInMonth(m, parts[2].toInt()) < d.toInt()) ""
+    else answer
     return ""
 }
 /**
