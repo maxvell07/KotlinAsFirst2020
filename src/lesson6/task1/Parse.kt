@@ -76,19 +76,17 @@ fun main() {
  * входными данными.
  */
 fun dateStrToDigit(str: String): String {
+    if (!str.matches(Regex("""\d\d?\s[а-яё]*\s\d+"""))) return ""
     val mon = mapOf("января" to 1, "февраля" to 2, "марта" to 3, "апреля" to 4, "мая" to 5, "июня" to 6, "июля" to 7,
         "августа" to 8, "сентября" to 9, "октября" to 10, "ноября" to 11, "декабря" to 12
     )
     val parts = str.split(" ")
-    if (parts.size != 3)
-        return ""
     val y = parts[2].toInt()
     val d = parts[0].toInt()
     val m = mon[parts[1]] ?: return ""
     return if (daysInMonth(m, y) < d) ""
     else String.format("%02d.%02d.%d", d, m, y)
 }
-
 /**
  * Средняя (4 балла)
  *
