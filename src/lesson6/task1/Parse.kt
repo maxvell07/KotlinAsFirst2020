@@ -115,11 +115,11 @@ fun dateDigitToStr(digital: String): String {
         " декабря "
     )
     val parts = digital.split(".")
+    if (parts[1].toInt() > 12) return ""
     val m = parts[1].toInt() % 100
     val d = (parts[0].toInt() % 100).toString()
     var answer = (d + month1[m] + parts[2])
     if (parts.size != 3) return ""
-    if (m > 12) return ""
     if (m == 0 || d.toInt() == 0 || parts[2].toInt() == 0) return ""
     return if (daysInMonth(m, parts[2].toInt()) < d.toInt()) ""
     else answer
