@@ -64,6 +64,7 @@ fun main() {
         println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
     }
 }
+
 /**
  * Средняя (4 балла)
  *
@@ -77,7 +78,8 @@ fun main() {
  */
 fun dateStrToDigit(str: String): String {
     if (!str.matches(Regex("""\d\d?\s[а-яё]*\s\d+"""))) return ""
-    val mon = mapOf("января" to 1, "февраля" to 2, "марта" to 3, "апреля" to 4, "мая" to 5, "июня" to 6, "июля" to 7,
+    val mon = mapOf(
+        "января" to 1, "февраля" to 2, "марта" to 3, "апреля" to 4, "мая" to 5, "июня" to 6, "июля" to 7,
         "августа" to 8, "сентября" to 9, "октября" to 10, "ноября" to 11, "декабря" to 12
     )
     val parts = str.split(" ")
@@ -87,6 +89,7 @@ fun dateStrToDigit(str: String): String {
     return if (daysInMonth(m, y) < d) ""
     else String.format("%02d.%02d.%d", d, m, y)
 }
+
 /**
  * Средняя (4 балла)
  *
@@ -125,6 +128,7 @@ fun dateDigitToStr(digital: String): String {
     else answer
     return ""
 }
+
 /**
  * Средняя (4 балла)
  *
@@ -164,7 +168,12 @@ fun bestLongJump(jumps: String): Int = TODO()
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    if ("$jumps ".matches(Regex("""(\d+\s[%\-+]*\s)*""")))
+        return Regex("""\d+\s%*\+""").findAll(jumps).maxOfOrNull { it.value.filter { it.isDigit() }.toInt() } ?: -1
+    else -1
+    return -1
+}
 
 /**
  * Сложная (6 баллов)
