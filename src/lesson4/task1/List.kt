@@ -251,7 +251,49 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    var n2 = n
+    var answer = ""
+    val unit = listOf1("", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX")
+    val ten = listOf1(
+        "",
+        "X",
+        "XX",
+        "XXX",
+        "XL",
+        "L",
+        "LX",
+        "LXX",
+        "LXXX",
+        "XC"
+    )
+    val hundred =
+        listOf1(
+            "",
+            "C",
+            "CC",
+            "CCC",
+            "CD",
+            "D",
+            "DC",
+            "DCC",
+            "DCCC",
+            "CM"
+        )
+    val t = listOf1("", "M", "MM", "MMM")
+    for (i in 1..digitNumber(n)) {
+        val lastd = n2 % 10
+        val a = when (i) {
+            1 -> unit
+            2 -> ten
+            4 -> t
+            else -> hundred
+        }
+        answer = a[lastd] + answer
+        n2 /= 10
+    }
+    return answer.trim()
+}
 
 /**
  * Очень сложная (7 баллов)
@@ -263,7 +305,7 @@ fun roman(n: Int): String = TODO()
 fun russian(n: Int): String {
     var answer = ""
     var n2 = n
-    val unit = listOf1("","один ", "два ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять ")
+    val unit = listOf1("", "один ", "два ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять ")
     val ten = listOf1(
         "",
         "десять ",

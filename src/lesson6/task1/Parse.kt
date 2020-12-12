@@ -174,7 +174,6 @@ fun bestHighJump(jumps: String): Int {
     else -1
     return -1
 }
-
 /**
  * Сложная (6 баллов)
  *
