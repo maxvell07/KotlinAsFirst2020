@@ -2,7 +2,9 @@
 
 package lesson7.task1
 
+import org.hamcrest.core.StringStartsWith
 import java.io.File
+import java.lang.StringBuilder
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -65,7 +67,7 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
 fun deleteMarked(inputName: String, outputName: String) {
     File(outputName).bufferedWriter().use {
         for (line in File(inputName).readLines()) {
-            if (!line.contains(Regex("""^_"""))) {
+            if (!line.startsWith("_")) {
                 it.write(line)
                 it.newLine()
             }
@@ -99,7 +101,7 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  *
  */
 fun sibilants(inputName: String, outputName: String) {
-val result = File(outputName).bufferedWriter()
+    val result = File(outputName).bufferedWriter()
     for (line in File(inputName).readLines()) {
         var correct = line
         if (correct.contains(Regex("""(?<=[щЩчЧшШжЖ])ю""")))
@@ -117,8 +119,9 @@ val result = File(outputName).bufferedWriter()
         result.write(correct)
         result.newLine()
     }
-result.close()
+    result.close()
 }
+
 /**
  * Средняя (15 баллов)
  *

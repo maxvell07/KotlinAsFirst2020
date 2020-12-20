@@ -102,7 +102,7 @@ fun dateStrToDigit(str: String): String {
  */
 fun dateDigitToStr(digital: String): String {
     if (!digital.matches(Regex("""\d+.\d+.\d+"""))) return ""
-    var month1 = listOf(
+    val month1 = listOf(
         "",
         " января ",
         " февраля ",
