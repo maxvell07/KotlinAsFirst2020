@@ -500,6 +500,7 @@ fun lab(inputName: String): Int {
     var pair = Pair(0, 0)
     var x = 0
     var y = 0
+    var camx = 0
     for (line in File(inputName).readLines()) {
         x = line.length                                                   //длина горизонтали
         y++                                                              // длина вертикали
@@ -520,8 +521,8 @@ fun lab(inputName: String): Int {
     var countY = 1
     var countX = 1
     for (line in File(inputName).readLines()) {
-        if (line.contains('C'))
-            pair = Pair(countY, line.indexOf('C') + 1)           // находим камеру и запис в pair
+        camx = line.indexOf('C')
+        if (camx != -1) pair = Pair(countY, camx + 1)                  // находим камеру и запис в pair
         for (elem in line) {
             xy[countY][countX] = elem                                  // записываем в массив наш лабиринт
             countX++
