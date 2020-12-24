@@ -2,9 +2,8 @@
 
 package lesson7.task1
 
-import org.hamcrest.core.StringStartsWith
 import java.io.File
-import java.lang.StringBuilder
+
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -479,3 +478,98 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     TODO()
 }
 
+/**Дан текстовый файл, в котором схематично изображена схема прямоугольного мини-лабиринта:
+- во всех строках одинаковое количество символов
+- символ # обозначает препятствие, символ . свободное место, символ C местоположение камеры в лабиринте (камера одна)
+
+Функция, которую нужно написать, принимает как параметр имя этого файла. Она должна выбрать и вернуть как результат
+количество свободных точек лабиринта, попадающих в зону обозрения камеры, причём:
+- зона обозрения камеры — это прямые линии от точки её расположения, идущие в 8 направлениях по горизонтали, вертикали
+и диагонали. Сквозь препятствия камера видеть не может (похоже на ход шахматного ферзя).
+
+Банальный пример
+xxx..
+xC#..
+xxx..
+.#.x.
+
+здесь зона обозрения камеры показана символами x, в неё входит всего 8 точек.
+ */
+fun lab(inputName: String): Int {
+    var answer = 0
+    var pair = Pair(0, 0)
+    var x = 0
+    var y = 0
+    for (line in File(inputName).readLines()) {
+        x = line.length                                                   //длина горизонтали
+        y++                                                              // длина вертикали
+    }
+
+    val xy = Array(y + 2) { Array(x + 2) { ' ' } }             // наш массив
+    for (i in 0..y + 1) {
+        if (i == 0 || i == y + 1) {                               // создаем границы лабиринта сверху и снизу
+            for (j in 0..x + 1) {
+                xy[i][j] = '0'
+            }
+        } else {
+            xy[i][0] = '0'                                           //  слева и справа
+            xy[i][x + 1] = '0'
+        }
+    }
+
+    var countY = 1
+    var countX = 1
+    for (line in File(inputName).readLines()) {
+        if (line.contains('C'))
+            pair = Pair(countY, line.indexOf('C') + 1)           // находим камеру и запис в pair
+        for (elem in line) {
+            xy[countY][countX] = elem                                  // записываем в массив наш лабиринт
+            countX++
+        }
+        countY++
+        countX = 1
+    }
+    countX = pair.second
+    countY = pair.first
+    for (i in countX..x + 1) {
+        if (xy[countY][i + 1] == '.') answer++                            // проверка горизонтали направо
+        else break
+    }
+    for (i in countX downTo 0) {
+        if (xy[countY][i - 1] == '.') answer++                             // проверка горизонтали налево
+        else break
+    }
+    for (i in countY downTo 0) {                                          // проверка по вертикали вверх
+        if (xy[i - 1][countX] == '.') answer++
+        else break
+    }
+    for (i in countY..y + 1) {                                             //проверка по вертикали вниз
+        if (xy[i + 1][countX] == '.') answer++
+        else break
+    }
+    var safeCount = countX                                               //дублируем кординату x (камеры)
+    for (i in countY..y + 1) {                                            // ДИАГОНАЛИ
+        if (xy[i + 1][safeCount + 1] == '.') answer++
+        else break
+        safeCount++
+    }
+    safeCount = countX
+    for (i in countY downTo 0) {
+        if (xy[i - 1][safeCount - 1] == '.') answer++
+        else break
+        safeCount--
+    }
+    safeCount = countX
+    for (i in countY downTo 0) {
+        if (xy[i - 1][safeCount + 1] == '.') answer++
+        else break
+        safeCount++
+    }
+    safeCount = countX
+    for (i in countY..y + 1) {
+        if (xy[i + 1][safeCount - 1] == '.') answer++
+        else break
+        safeCount--
+    }
+    return answer
+}

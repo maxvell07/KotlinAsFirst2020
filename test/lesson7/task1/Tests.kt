@@ -441,4 +441,9 @@ Basic, Ruby, Swift.
 
         File("temp.txt").delete()
     }
+@Test
+fun lab() {
+assertEquals(11, lab("input/testMyLab"))
+}
+
 }
