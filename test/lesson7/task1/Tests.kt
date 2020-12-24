@@ -441,9 +441,12 @@ Basic, Ruby, Swift.
 
         File("temp.txt").delete()
     }
-@Test
-fun lab() {
-assertEquals(11, lab("input/testMyLab"))
-}
+
+    @Test
+    fun lab() {
+        assertEquals(11, lab("input/testMyLab"))
+        assertEquals(0, lab("input/testMyLab#2"))
+        assertEquals(12, lab("input/testMyLab#3"))
+    }
 
 }
