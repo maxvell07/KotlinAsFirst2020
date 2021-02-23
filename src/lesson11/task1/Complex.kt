@@ -24,10 +24,10 @@ class Complex(val re: Double, val im: Double) {
      * Конструктор из строки вида x+yi
      */
     constructor(s: String) : this(
-        if (s.contains("+")) s.split("+") [0].toDouble()
-        else s.split(Regex(""""(\d-(\d))|(-\d-(\d))""")) [0].toDouble(),
-        if (s.contains("+")) s.split("+") [1].removeSuffix("i").toDouble()
-        else s.split(Regex("""(\d-(\d))|(-\d-(\d))""")) [1].removeSuffix("i").toDouble()
+        if (s.contains("+")) s.split("+")[0].toDouble()
+        else s.split(Regex(""""(?<=\d)-"""))[0].toDouble(),
+        if (s.contains("+")) s.split("+")[1].removeSuffix("i").toDouble()
+        else -s.split(Regex("""(?<=\d)-"""))[1].removeSuffix("i").toDouble()
     )
 
     /**
@@ -57,15 +57,15 @@ class Complex(val re: Double, val im: Double) {
      * Деление
      */
     operator fun div(other: Complex): Complex = Complex(
-        (im * other.re + re * other.im) / (other.im.pow(2) + other.re.pow(2)),
-        (re * other.im - im * other.re) / (other.im.pow(2) + other.re.pow(2))
+        (re * other.re + im * other.im) / (other.im.pow(2) + other.re.pow(2)),
+        (im * other.re - re * other.im) / (other.im.pow(2) + other.re.pow(2))
     )
 
     /**
      * Сравнение на равенство
      */
     override fun equals(other: Any?): Boolean =
-        other is Complex && re == other.re && im == other.im
+        other is Complex && im == other.im && re == other.re
 
     /**
      * Преобразование в строку

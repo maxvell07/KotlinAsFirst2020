@@ -25,6 +25,7 @@ class PhoneBook {
      * (во втором случае телефонная книга не должна меняться).
      */
     fun addHuman(name: String): Boolean = TODO()
+    val book = mutableMapOf<String, Int>()
 
     /**
      * Убрать человека.
