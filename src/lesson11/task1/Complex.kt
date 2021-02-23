@@ -25,7 +25,7 @@ class Complex(val re: Double, val im: Double) {
      */
     constructor(s: String) : this(
         if (s.contains("+")) s.split("+")[0].toDouble()
-        else s.split(Regex(""""(?<=\d)-"""))[0].toDouble(),
+        else s.split(Regex("""(?<=\d)-"""))[0].toDouble(),
         if (s.contains("+")) s.split("+")[1].removeSuffix("i").toDouble()
         else -s.split(Regex("""(?<=\d)-"""))[1].removeSuffix("i").toDouble()
     )
