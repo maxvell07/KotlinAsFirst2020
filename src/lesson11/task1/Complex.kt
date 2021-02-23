@@ -24,10 +24,10 @@ class Complex(val re: Double, val im: Double) {
      * Конструктор из строки вида x+yi
      */
     constructor(s: String) : this(
-        if (s.contains("+")) s.split("+")[0].toDouble()
-        else s.split(Regex(""""(\d-(\d))|(-\d-(\d))"""))[0].toDouble(),
-        if (s.contains("+")) s.split("+")[1].removeSuffix("i").toDouble()
-        else s.split(Regex("""(\d-(\d))|(-\d-(\d))"""))[1].removeSuffix("i").toDouble()
+        if (s.contains("+")) s.split("+") [0].toDouble()
+        else s.split(Regex(""""(\d-(\d))|(-\d-(\d))""")) [0].toDouble(),
+        if (s.contains("+")) s.split("+") [1].removeSuffix("i").toDouble()
+        else s.split(Regex("""(\d-(\d))|(-\d-(\d))""")) [1].removeSuffix("i").toDouble()
     )
 
     /**
